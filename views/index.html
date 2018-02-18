@@ -35,12 +35,18 @@
 		
 		var videoPlayer = document.getElementById('videoPlayer');
 		
+		videoPlayer.pause();
 		videoPlayer.setAttribute('src', files[currentFile]);
+		videoPlayer.load();
+		videoPlayer.play();
 		
 		currentFile++;
 		
 		videoPlayer.onended = function(){
-			videoPlayer.src = files[currentFile];
+			videoPlayer.pause();
+			videoPlayer.setAttribute('src', files[currentFile]);
+			videoPlayer.load();
+			videoPlayer.play();
 			
 			if(currentFile >= (files.length-1)){
 				currentFile = 0;

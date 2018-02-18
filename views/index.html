@@ -1,0 +1,52 @@
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	video {
+		width: 100%;
+		height: auto;
+		min-width: 100%; 
+		min-height: 100%;
+	}
+	
+</style>
+<script src="/jquery-latest.min.js" type="text/javascript"></script>
+
+
+<video id="videoPlayer" autoplay></video>
+
+<!-- lol -->
+
+<!-- <h2><%= name %></h1> -->
+
+<script>
+	var name = "{{ name }}";
+	console.log(name);
+	
+	var files = null;
+	var currentFile = null;
+
+	$.get( "/getFiles", function(data) {
+		console.log(data);
+		files = data;
+		currentFile = 0;
+		
+		var videoPlayer = document.getElementById('videoPlayer');
+		
+		videoPlayer.setAttribute('src', files[currentFile]);
+		
+		currentFile++;
+		
+		videoPlayer.onended = function(){
+			videoPlayer.src = files[currentFile];
+			
+			if(currentFile >= (files.length-1)){
+				currentFile = 0;
+			}else{
+				currentFile++;
+			}
+		}
+	});
+</script>
